@@ -16,9 +16,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet weak var recordingLabel: UILabel!
     @IBOutlet weak var recordingButtonOutlet: UIButton!
     @IBOutlet weak var stopRecordingButton: UIButton!
-
-    
-    
+   
     override func viewWillAppear(_ animated: Bool) {
         // make sure stop button is disabled and record button is enabled on load
         buttons()
@@ -42,7 +40,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
     
     // MARK: Buttons
-    //helper method for record audio function
+    /**Enable or disable recording button and outlet depending on state*/
     func buttons(){
         if stopRecordingButton.isEnabled{
             stopRecordingButton.isEnabled = false
@@ -70,7 +68,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         let recordingName = "recordedVoice.wav"
         let pathArray = [dirPath, recordingName]
         let filePath = URL(string: pathArray.joined(separator: "/"))
-        
         let session = AVAudioSession.sharedInstance()
         try! session.setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
         try! audioRecorder = AVAudioRecorder(url: filePath!, settings: [:])
@@ -79,8 +76,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.prepareToRecord()
         audioRecorder.record()
     }
-    
-    
+
     //Mark: Delegate Methods
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag{
